@@ -2,13 +2,13 @@
 	"manifest_version": 2,
 
 	"name": "tw_cmd",
-	"description": "Twitter Command Line on Chrome."
+	"description": "Twitter Command Line on Chrome.",
 	"version": "1.0",
 
 	"permissions": [],
 
 	"browser_action": {
-		"default_icon.png": "./img/icon.png"
+		"default_icon.png": "./img/icon.png",
 		"default_popup": "index.html"
 	}
 }
