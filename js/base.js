@@ -1,4 +1,4 @@
-define(['jquery.min', 'OAuth', 'sha1', 'twitter'], function() {
+define(['jquery.min', 'OAuth', 'sha1', 'twitter', 'command_dispatch'], function() {
     var $ext = window.$ext = chrome.extension.getBackgroundPage(),
         $content = window.$content = $('#content');
     
@@ -25,8 +25,18 @@ define(['jquery.min', 'OAuth', 'sha1', 'twitter'], function() {
             $("#timeline").append("<ul><li>"+stamp+"</li></ul></li>").trigger('create');
         });
         console.log("done.");
+        Cmd.dispatch("ls");
+        Cmd.dispatch("rt theyeung1");
+        Cmd.dispatch("reply theyeung1");
     }));
-
+    /*function testcmd_dispatch() {
+        console.log("start cmd_dispatch");
+        cmd_dispatch("ls");
+        cmd_dispatch("rt theyeung1");
+        cmd_dispatch("reply theyeung1");
+        console.log("done");
+    }
+    testcmd_dispatch();*/
     var route = function() {
         var path = window.location.hash.substr(1) || '';
         
