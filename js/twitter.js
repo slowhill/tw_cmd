@@ -27,7 +27,7 @@
             localStorage.oauth_token = oauth_token = tokens.oauth_token;
             localStorage.oauth_token_secret = oauth_token_secret = tokens.oauth_token_secret;
         },
-                stream: function(path) {
+        stream: function(path) {
             var args = Array.prototype.slice.call(arguments, 1),
                 fn = false,
                 params = {},

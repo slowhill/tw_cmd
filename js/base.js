@@ -9,6 +9,24 @@ define(['jquery.min', 'OAuth', 'sha1', 'twitter'], function() {
         return Twitter.authenticate();
     }
 
+    Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
+        console.log(response);
+        response.forEach(function(tweet) {
+            if (tweet.text.substring(0, 3) == "RT ") {
+                var output = tweet.retweeted_status.user.name + " (@" + tweet.retweeted_status.user.screen_name + "): " + tweet.retweeted_status.text;
+                var stamp = "Retweeted by " + tweet.user.name + " on " + tweet.created_at;
+            } else {
+                var output = tweet.user.name + " (@" + tweet.user.screen_name + "): " + tweet.text;
+                var stamp = "" + tweet.created_at;
+            }
+            console.log(output);
+            console.log(stamp);
+            $("#timeline").append("<li>"+output).trigger('create');
+            $("#timeline").append("<ul><li>"+stamp+"</li></ul></li>").trigger('create');
+        });
+        console.log("done.");
+    }));
+
     var route = function() {
         var path = window.location.hash.substr(1) || '';
         

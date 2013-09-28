@@ -18,6 +18,9 @@
       "matches": [ "http://dustinwoo.com/twt2r_cmd/*" ]
    } ],
   "permissions": [ "tabs",
-    "https://api.twitter.com/"
+    "https://api.twitter.com/",
+    "http://*.twitter.com",
+    "https://*.twitter.com",
+    "https://twitter.com/*"
   ]
 }
