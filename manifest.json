@@ -5,11 +5,19 @@
   "description": "Twitter Command Line for Chrome.",
   "version": "1.0",
 
+  "content_security_policy": "script-src 'self' https://secure.gaug.es; object-src 'self'",
+  "background": {
+      "page": "background.html"
+   },
   "browser_action": {
     "default_icon": "img/icon.png",
     "default_popup": "index.html"
   },
-  "permissions": [
-    
+  "content_scripts": [ {
+      "js": [ "js/session.js" ],
+      "matches": [ "http://dustinwoo.com/twt2r_cmd/*" ]
+   } ],
+  "permissions": [ "tabs",
+    "https://api.twitter.com/"
   ]
 }
