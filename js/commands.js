@@ -10,7 +10,7 @@
             return correctText;
         },
         getTimeline: function(tweetarray) {
-	        //console.log(tweetarray); //array of tweets
+	        console.log(tweetarray); //array of tweets
             var formattedArray = new Array(tweetarray.length);
             $.each(tweetarray, function(key, value) {
                 formattedArray[key] = new tweet(value.id, value.user.name, value.user.screen_name,
