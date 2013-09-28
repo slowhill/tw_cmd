@@ -9,7 +9,8 @@
                     switch (split_input.length){
                         case 1:
                             var tweets = this.showTweets(null, null);
-                            return tweets;
+                            console.log("dem tweets")
+                            console.log(tweets);
                             break;
                         case 2:
                             // error
@@ -48,12 +49,22 @@
                     //show_usr(split_input[1]);
             }
         },
-        showTweets: function(option, param) {
+        showTweets: function(option, param, callback) {
             if (option == null && param == null){ // no parameters so show all tweets
-                var twArray = Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){twOps.getTimeline(response);}));
-                console.log("twArray");
-                console.log(twArray);
-                return twArray;
+                
+                var dfd = new jQuery.Deferred();
+
+                Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
+                    dfd.resolve(response);
+                    
+                    $.when(dfd).then(function(data){
+                        console.log(data);
+                        callback(twOps.getTimeline(data));
+                    });
+                }));
+                
+                
+                
             } else {
                 switch (option){
                     case "-u":
