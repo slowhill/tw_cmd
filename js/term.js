@@ -1,10 +1,17 @@
-function tweet(id, uname, sname, text, isRetweet, timestamp){
+function tweet(id, uname, sname, text, summary, timestamp){
     this.id = id;
     this.user = uname;
     this.screen = sname;
     this.text = text;
-    this.isRetweet = isRetweet;
     this.timestamp = timestamp;
+    
+    if (summary.retweeted_status != null) { //Retweeted from someone
+        this.isRetweeted = true;
+        this.rtFrom = summary.retweeted_status.user.name;
+        this.rtFromHandle = summary.retweeted_status.user.screen_name;
+    } else {
+        this.isRetweeted = false;
+    }
 }
 
 $(document).ready(function(){

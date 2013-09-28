@@ -14,7 +14,7 @@
             var formattedArray = new Array(tweetarray.length);
             $.each(tweetarray, function(key, value) {
                 formattedArray[key] = new tweet(value.id, value.user.name, value.user.screen_name,
-                    twOps.getCorrectText(value), value.retweeted_status != null, value.created_at); //format the timestamp
+                    twOps.getCorrectText(value), value, value.created_at); //format the timestamp
             });
             console.log("twOps.getTimeLine");
             console.log(formattedArray);
