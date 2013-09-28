@@ -15,29 +15,17 @@ $(document).ready(function(){
             var result = Cmd.dispatch($('.cmdline').val());
             $('#output').append('<div><div class=\"prompt history\">$></div><div class=\"input-line history\">'
                                 + $('.cmdline').val() + '</div></div>');
-            $('#output').append(result)
             $('.cmdline').val('');
             $(document).scrollTop($(document).height()); // scrolls to the bottom
         }
     })
 });
 
-function getTimeline(tweetarray) {
-    var formattedArray = new Array(tweetarray.length);
-    $.each(tweetarray, function(key, value) {
-    formattedArray[key] = new tweet(value.id, value.user.name, value.user.screen_name,
-        getCorrectText(value), value.retweeted_status != null, value.created_at); //format the timestamp
+function appendTo(param) {
+    $.each(param, function(index, tweet) {
+        $('#output').append(tweet.text+"<br/>");
     });
-    console.log(formattedArray);
-    return formattedArray; //formatted array picking what we need
-}
-
-function getCorrectText(tweet) {
-    var correctText;
-    if(tweet.text.substring(0, 2) == "RT ") {
-        correctText = tweet.retweet_status.text;
-    } else {
-        correctText = tweet.text;
-    }
-    return correctText;
+    //$('#output').append(param);
+    console.log("appendTo");
+    console.log(param);
 }

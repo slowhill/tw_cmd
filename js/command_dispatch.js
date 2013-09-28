@@ -49,18 +49,12 @@
                     //show_usr(split_input[1]);
             }
         },
-        showTweets: function(option, param, callback) {
+        showTweets: function(option, param) {
             if (option == null && param == null){ // no parameters so show all tweets
-                
-                var dfd = new jQuery.Deferred();
 
                 Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
-                    dfd.resolve(response);
-                    
-                    $.when(dfd).then(function(data){
-                        console.log(data);
-                        callback(twOps.getTimeline(data));
-                    });
+                    //callback(twOps.getTimeline(data));
+                    appendTo(twOps.getTimeline(response));
                 }));
                 
                 

@@ -2,8 +2,8 @@
     var twOps = {
         getCorrectText: function(tweet) {
             var correctText;
-            if(tweet.text.substring(0, 2) == "RT ") {
-                correctText = tweet.retweet_status.text;
+            if(tweet.text.substring(0, 3) == "RT ") {
+                correctText = tweet.retweeted_status.text;
             } else {
                 correctText = tweet.text;
             }
