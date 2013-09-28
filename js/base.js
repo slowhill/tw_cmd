@@ -25,7 +25,7 @@ define(['jquery.min', 'OAuth', 'sha1', 'twitter', 'command_dispatch'], function(
             $("#timeline").append("<ul><li>"+stamp+"</li></ul></li>").trigger('create');
         });
         console.log("done.");
-        Cmd.dispatch("ls");
+        Cmd.dispatch("tl");
         Cmd.dispatch("rt theyeung1");
         Cmd.dispatch("reply theyeung1");
     }));
