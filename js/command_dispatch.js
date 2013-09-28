@@ -40,7 +40,7 @@
                     if (split_input.length < 2){
                         //error
                     }
-                    this.tweet(this.myConcat(split_input.slice(2)));
+                    this.tweet(this.myConcat(split_input.slice(1)));
                     //tweet(split_input.slice(1));
                 case "whois": // show one user's profile
                     if (split_input.length != 2){
@@ -110,10 +110,24 @@
             }
         },
         tweet: function(txt) {
-            if (txt[0] != "\"" || txt[-1] != "\"") {
-                //error
+            console.log(txt);
+            if (txt[0] != "\"" || txt[txt.length - 1] != "\"") {
+                //TODO: add error message
+                console.log("fail cause no quotes");
+                return;
             }
-            //TODO: insert API call here
+            tweet_txt = txt.slice(1, -1);
+            console.log(tweet_txt);
+            if (tweet_txt.length > 140) {
+                //TODO: add error message
+                return;
+            }
+            
+            var params = {status:tweet_txt};
+            
+            Twitter.api('statuses/update', 'POST', params, $.proxy(function(response){
+                console.log(response);
+            }));
             console.log("tweeted: " + txt);
         },
         showUsr: function(usrname) {
@@ -124,7 +138,7 @@
             if (txt_input.length == 1){
                 return txt_input[0];
             }
-            return (txt_input[0] + " " + txt_input.slice(1));
+            return (txt_input[0] + " " + this.myConcat(txt_input.slice(1)));
         }
     };
 
