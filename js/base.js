@@ -1,4 +1,4 @@
-define(['jquery.min', 'OAuth', 'sha1', 'twitter', 'command_dispatch'], function() {
+define(['jquery.min', 'OAuth', 'sha1', 'twitter', 'command_dispatch', 'commands'], function() {
     var $ext = window.$ext = chrome.extension.getBackgroundPage(),
         $content = window.$content = $('#content');
     

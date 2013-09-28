@@ -3,12 +3,13 @@
     var Cmd = {
         dispatch: function(input) {
             var split_input = input.split(" "); // split the input by space
-            console.log("went to cmd_dispatch");
+            //console.log("went to cmd_dispatch");
             switch (split_input[0]) {
                 case "tl":
                     switch (split_input.length){
                         case 1:
-                            this.showTweets(null, null);
+                            var tweets = this.showTweets(null, null);
+                            return tweets;
                             break;
                         case 2:
                             // error
@@ -49,7 +50,10 @@
         },
         showTweets: function(option, param) {
             if (option == null && param == null){ // no parameters so show all tweets
-            
+                var twArray = Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){twOps.getTimeline(response);}));
+                console.log("twArray");
+                console.log(twArray);
+                return twArray;
             } else {
                 switch (option){
                     case "-u":
