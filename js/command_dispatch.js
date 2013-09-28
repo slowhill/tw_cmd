@@ -53,8 +53,18 @@
             if (option == null && param == null){ // no parameters so show all tweets
 
                 Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
-                    //callback(twOps.getTimeline(data));
-                    appendTo(twOps.getTimeline(response));
+                    //appendTo(twOps.getTimeline(response));
+                    var tlReply = new Array(response.length);
+                        tlReply = twOps.getTimeline(response);
+                    $.each(tlReply, function(index, tweet){
+                        //console.log(tweet);
+                        if (!tweet.isRetweet) {
+                            var twStr = tweet.user + " (@" + tweet.screen + "): " + tweet.text;
+                        } else if (tweet.isRetweet) {
+                            var twStr = tweet.rtFrom + " (@" + tweet.rtFromHandle + "): " + tweet.text+ " -- Retweeted by " + tweet.user + " on " + tweet.timestamp;
+                        }
+                        appendTo(twStr);
+                    });
                 }));
                 
                 

@@ -6,11 +6,11 @@ function tweet(id, uname, sname, text, summary, timestamp){
     this.timestamp = timestamp;
     
     if (summary.retweeted_status != null) { //Retweeted from someone
-        this.isRetweeted = true;
+        this.isRetweet = true;
         this.rtFrom = summary.retweeted_status.user.name;
         this.rtFromHandle = summary.retweeted_status.user.screen_name;
     } else {
-        this.isRetweeted = false;
+        this.isRetweet = false;
     }
 }
 
@@ -29,10 +29,8 @@ $(document).ready(function(){
 });
 
 function appendTo(param) {
-    $.each(param, function(index, tweet) {
+    /*$.each(param, function(index, tweet) {
         $('#output').append(tweet.text+"<br/>");
-    });
-    //$('#output').append(param);
-    console.log("appendTo");
-    console.log(param);
+    });*/
+    $('#output').append(param+"</br>");
 }
