@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('.cmdline').keypress(function (e){
         if (e.charCode == 13){
             console.log($('.cmdline').val());
+            Cmd.dispatch($('.cmdline').val());
             $('#output').append('<div><div class=\"prompt history\">$></div><div class=\"input-line history\">'
                                 + $('.cmdline').val() + '</div></div>');
             $('.cmdline').val('');
