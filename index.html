@@ -3,14 +3,25 @@
 <head>
 	<link rel="stylesheet" src="./css/bootstrap.min.css" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" media="all" href="css/term.css">
+    <style type="text/css"></style>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script src="js/term.js"></script>
 </head>
 <body>
 <h1>twt2r_cmd</h2>
 <!--THERE'S NOTHING HERE-->
+<!--
 <ul id="timeline" class="list-group" data-role="listview">
 </ul>
-
-<script type="text/javascript" src="./js/jquery.min.js"></script>
+-->
+<div id="output"></div>
+<div id="input-line" class="input-line">
+    <div class="prompt">$></div>
+    <div>
+        <input class="cmdline" autofocus>
+    </div>
+</div>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/command_dispatch.js"></script>
 <script type="text/javascript" src="./js/require.js" data-main="./js/base.js"></script>
