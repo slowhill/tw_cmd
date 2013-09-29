@@ -9,13 +9,13 @@
                     switch (split_input.length){
                         case 1:
                             var tweets = this.showTweets(null, null);
-                            console.log("dem tweets")
-                            console.log(tweets);
+                            //console.log("dem tweets")
+                            //console.log(tweets);
                             break;
                         case 2:
-                            // error
+                            this.showTweets(split_input[1], null);
                             break;
-                        case 3:
+                        case 3: //user, specific number
                             this.showTweets(split_input[1], split_input[2]);
                             //show_tweets(split_input[1], split_input[2]);
                             break;
@@ -23,6 +23,7 @@
                             // error
                             break;
                     }
+                    break;
                 case "reply":
                     if (split_input.length < 3){
                         //error
@@ -30,26 +31,27 @@
                     }
                     this.replyTweet(split_input[1], split_input.slice(2));
                     break;
-                    //reply_tweet(split_input[1], split_input.slice(2));
+
                 case "rt": //retweet
                     if (split_input.length < 3){
                         //error
                     }
                     this.retweet(split_input[1], split_input.slice(2));
                     break;
-                    //retweet(split_input[1], split_input.slice(2));
+
                 case "tweet": // send a tweet
                     if (split_input.length < 2){
                         //error
                     }
                     this.tweet(this.myConcat(split_input.slice(1)));
                     break;
-                    //tweet(split_input.slice(1));
+
                 case "whois": // show one user's profile
                     if (split_input.length != 2){
                         // error
                     }
                     //show_usr(split_input[1]);
+                    break;
             }
         },
         showTweets: function(option, param) {
@@ -57,17 +59,7 @@
 
                 Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
                     //appendTo(twOps.getTimeline(response));
-                    var tlReply = new Array(response.length);
-                        tlReply = twOps.getTimeline(response);
-                    $.each(tlReply, function(index, tweet){
-                        //console.log(tweet);
-                        if (!tweet.isRetweet) {
-                            var twStr = tweet.user + " (@" + tweet.screen + "): " + tweet.text;
-                        } else if (tweet.isRetweet) {
-                            var twStr = tweet.rtFrom + " (@" + tweet.rtFromHandle + "): " + tweet.text+ " -- Retweeted by " + tweet.user + " on " + tweet.timestamp;
-                        }
-                        appendTo(twStr);
-                    });
+                    twOps.formatTimelineforTerm(response);
                 }));
                 
                 
@@ -83,6 +75,13 @@
                         break;
                     case "-n":
                         // show a specific number of tweets
+                        break;
+                    case "more":
+                        if (param == null) {
+                            Twitter.api("statuses/home_timeline", {max_id: localStorage.getItem('lastTweetId')}, "GET", $.proxy(function(response){
+                                twOps.formatTimelineforTerm(response);
+                            }));
+                        }
                         break;
                     default:
                         break;
