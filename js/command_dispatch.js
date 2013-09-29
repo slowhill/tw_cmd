@@ -67,7 +67,16 @@
             } else {
                 switch (option){
                     case "-u":
-                        // show the tweets of one user
+                        if (param == null){
+                            // error, return
+                            return;
+                        } else {
+                            var p = {screen_name:param};
+                            Twitter.api("statuses/user_timeline", p, "GET", 
+                                       $.proxy(function(response){
+                                           twOps.formatTimelineforTerm(response);
+                                       }))
+                        }
                         break;
                     case "-t":
                         // show what is trending
