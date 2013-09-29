@@ -40,6 +40,9 @@
         },
         formatTimestamp: function(timestamp) {
             return timestamp.substring(4, 19).trim();
+        },
+        favouriteTweet: function(tweet) {
+            appendTo("Favourited \"" + tweet.text + "\" on " + this.formatTimestamp(tweet.created_at));
         }
     }
     

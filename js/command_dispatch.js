@@ -22,21 +22,21 @@
                     break;
                 case "reply":
                     if (split_input.length < 3){
-                        //error
+                        appendTo(incorrectSyntax); //Error
                         break;
                     }
                     this.replyTweet(split_input[1], split_input.slice(2));
                     break;
                 case "rt": //retweet
                     if (split_input.length < 3){
-                        //error
+                        appendTo(incorrectSyntax); //Error
                     }
                     this.retweet(split_input[1], split_input.slice(2));
                     break;
 
                 case "tweet": // send a tweet
                     if (split_input.length < 2){
-                        //error
+                        appendTo(incorrectSyntax); //Error
                     }
                     this.tweet(this.myConcat(split_input.slice(1)));
                     break;
@@ -47,13 +47,18 @@
                     //show_usr(split_input[1]);
                     break;
                 case "fav":
+                    if (split_input.length < 3) {
+                        appendTo(incorrectSyntax);
+                    } else {
+                        this.favTweet(split_input[1], split_input[2]);
+                    }
                     break;
                 case "del":
                     break;
                 case "help":
                     break;
                 default:
-                    appendTo(incorrectSyntax);
+                    appendTo(incorrectSyntax); //Error
                     break;
             }
         },
@@ -82,28 +87,13 @@
                         // options will be local and global and specific location
                         break;
                     case "-n":
-                        if (param == null){
-                            // error
-                            return;
+                        if (param == null || !isNumber(param) || param > 200){
+                            appendTo(incorrectSyntax); //Error
+                            break;
                         };
-                        n = parseInt(param);
-                        if (isNaN(n)){
-                            // error
-                            return;
-                        }
-                        if (n > 200){
-                            // error, too many
-                            return;
-                        }
-                        Twitter.api("statuses/home_timeline", {count:n}, "GET", $.proxy(function(response){
+                        Twitter.api("statuses/home_timeline", {count:param}, "GET", $.proxy(function(response){
                                 twOps.formatTimelineforTerm(response);
-                            }));
-                        // show a specific number of tweets
-                        if (param !== null && isNumber(param)) {
-                            Twitter.api("statuses/home_timeline", {count: param}, "GET", $.proxy(function(response){
-                                twOps.formatTimelineforTerm(response);
-                            }));
-                        }
+                        }));
                         break;
                     case "more":
                         if (param == null) {
@@ -192,6 +182,28 @@
                 console.log(response);
             }));
             console.log("tweeted: " + txt);
+        },
+        favTweet: function(option, param) {
+            switch(option) {
+                case "-u":
+                    
+                    break;
+                case "-id":
+                    if (param !== null && isNumber(param)) {
+                        indexkey = param[0]
+                        id_key = localStorage.getItem(indexkey+"key");
+                        handler_key = localStorage.getItem(indexkey+"handler");
+                        Twitter.api("favorites/create", {id:id_key}, "POST", $.proxy(function(response){
+                            appendTo(twOps.favouriteTweet(response));
+                        }));
+                    } else {
+                        appendTo(incorrectSyntax); //Error   
+                    }
+                    break;
+                default:
+                    appendTo(incorrectSyntax); //Error
+                    break;
+            }
         },
         showUsr: function(usrname) {
             //TODO: insert API call here

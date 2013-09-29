@@ -42,6 +42,7 @@ $(document).ready(function(){
 });
 function appendTo(param) {
     $('#output').append(param+"</br>");
+    $('.cmdline').val('');
     localStorage.setItem('prevTerm', $('#output').html());
 }
 
