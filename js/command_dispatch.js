@@ -3,21 +3,17 @@
     var Cmd = {
         dispatch: function(input) {
             var split_input = input.split(" "); // split the input by space
-            //console.log("went to cmd_dispatch");
             switch (split_input[0]) {
                 case "tl":
                     switch (split_input.length){
                         case 1:
                             var tweets = this.showTweets(null, null);
-                            //console.log("dem tweets")
-                            //console.log(tweets);
                             break;
                         case 2:
                             this.showTweets(split_input[1], null);
                             break;
                         case 3: //user, specific number
                             this.showTweets(split_input[1], split_input[2]);
-                            //show_tweets(split_input[1], split_input[2]);
                             break;
                         default:
                             // error
@@ -31,7 +27,6 @@
                     }
                     this.replyTweet(split_input[1], split_input.slice(2));
                     break;
-
                 case "rt": //retweet
                     if (split_input.length < 3){
                         //error
@@ -45,37 +40,41 @@
                     }
                     this.tweet(this.myConcat(split_input.slice(1)));
                     break;
-
                 case "whois": // show one user's profile
                     if (split_input.length != 2){
                         // error
                     }
                     //show_usr(split_input[1]);
                     break;
+                case "fav":
+                    break;
+                case "del":
+                    break;
+                case "help":
+                    break;
+                default:
+                    appendTo(incorrectSyntax);
+                    break;
             }
         },
         showTweets: function(option, param) {
             if (option == null && param == null){ // no parameters so show all tweets
-
                 Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
                     //appendTo(twOps.getTimeline(response));
                     twOps.formatTimelineforTerm(response);
                 }));
-                
-                
-                
             } else {
                 switch (option){
                     case "-u":
                         if (param == null){
-                            // error, return
-                            return;
+                            appendTo(incorrectSyntax); //Error
+                            break;
                         } else {
                             var p = {screen_name:param};
                             Twitter.api("statuses/user_timeline", p, "GET", 
-                                       $.proxy(function(response){
-                                           twOps.formatTimelineforTerm(response);
-                                       }))
+                                $.proxy(function(response){
+                                   twOps.formatTimelineforTerm(response);
+                            }));
                         }
                         break;
                     case "-t":
@@ -84,15 +83,32 @@
                         break;
                     case "-n":
                         // show a specific number of tweets
+                        if (param !== null && isNumber(param)) {
+                            Twitter.api("statuses/home_timeline", {count: param}, "GET", $.proxy(function(response){
+                                twOps.formatTimelineforTerm(response);
+                            }));
+                        }
                         break;
                     case "more":
                         if (param == null) {
                             Twitter.api("statuses/home_timeline", {max_id: localStorage.getItem('lastTweetId')}, "GET", $.proxy(function(response){
                                 twOps.formatTimelineforTerm(response);
                             }));
+                        } else if (param == "mentions") {
+                            Twitter.api("statuses/mentions_timeline", {max_id: localStorage.getItem('lastTweetId')}, "GET", $.proxy(function(response) {
+                                twOps.formatTimelineforTerm(response);
+                            }));
+                        }
+                        break;
+                    case "mentions":
+                        if (param == null) {
+                            Twitter.api("statuses/mentions_timeline", "GET", $.proxy(function(response) {
+                                twOps.formatTimelineforTerm(response);
+                            }));
                         }
                         break;
                     default:
+                        appendTo(incorrectSyntax); //Error
                         break;
                 }        
             }
@@ -105,12 +121,15 @@
             } else if (option == "-id"){ // reply to a specific tweet
                 console.log("reply to specific id");
                 //TODO: insert API call here
-                id = param[0];
+                indexkey = param[0];
+                id_key = localStorage.getItem(indexkey+"key");
+                handler_filler = localStorage.getItem(indexkey+"handler");
+                //console.log(param.slice(1));
                 reply_msg = this.myConcat(param.slice(1));
-                this.tweet(reply_msg, id);
-                
+                console.log(reply_msg);
+                this.tweet(reply_msg, id_key);
             } else{
-                //error
+                appendTo(incorrectSyntax); //Error
             }
         },
         retweet: function(option, param) {
@@ -119,14 +138,14 @@
                 //TODO: insert API call here
             } else if (option == "-id"){ // retweet a specific tweet
                 console.log("retweet a specific id");
-                id = param[0];
-                console.log(id);
-                Twitter.api('statuses/retweet/' + id, 'POST', {include_entities: true}, $.proxy(function(response){
+                indexkey = param[0];
+                id_key = localStorage.getItem(indexkey+"key");
+                console.log(id_key);
+                Twitter.api('statuses/retweet/' + id_key, 'POST', {include_entities: true}, $.proxy(function(response){
                     console.log(response);
                 }));
-                
             } else{
-                //error
+                appendTo(incorrectSyntax); //Error
             }
         },
         tweet: function(txt, reply_id) {
@@ -143,6 +162,7 @@
                 return;
             }
             
+            //REPLIES
             console.log(reply_id);
             if (reply_id == null){
                 var params = {status:tweet_txt};

@@ -27,13 +27,19 @@
             tlReply = twOps.getTimeline(response);
             $.each(tlReply, function(index, tweet){
                 //console.log(tweet);
+                var twStr = index + ". ";
                 if (!tweet.isRetweet) {
-                    var twStr = tweet.user + " (@" + tweet.screen + "): " + tweet.text;
+                    twStr += tweet.user + " (@" + tweet.screen + "): " + tweet.text;
                 } else if (tweet.isRetweet) {
-                    var twStr = tweet.rtFrom + " (@" + tweet.rtFromHandle + "): " + tweet.text+ " -- Retweeted by " + tweet.user + " on " + tweet.timestamp;
+                    twStr += tweet.rtFrom + " (@" + tweet.rtFromHandle + "): " + tweet.text+ " -- Retweeted by " + tweet.user + " on " + tweet.timestamp;
                 }
+                localStorage.setItem(index+"key", tweet.id);
+                localStorage.setItem(index+"handler", tweet.screen);
                 appendTo(twStr);
             });
+        },
+        formatTimestamp: function(timestamp) {
+            return timestamp.substring(4, 19).trim();
         }
     }
     

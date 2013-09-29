@@ -1,13 +1,3 @@
-body {background-color:black; color:#48E310;}
-div{
-    font-family: "Deja Vu sans mono", 'Driod sans mono', Tahoma, Verdana, Arial, sans-serif;
-    color: #48E310;
-    font-size: 11px;
-    padding: 1px;
-}
-#wrap {
-    font-size: 4;
-}
 .input-line {
   display: -webkit-box;
   -webkit-box-orient: horizontal;
@@ -16,21 +6,21 @@ div{
   box-orient: horizontal;
   box-align: stretch;
   clear: both;
+  width:90%;
 }
 
 .cmdline {
   outline: none;
+  background-color: transparent;
   margin: 0;
-  width: 100%;
+  width: 90%;
   font: inherit;
   border: none;
-  color: #48E310;
-  font-size: 10px;
-  background-color:black;
+  color: inherit;
+  font-size:8;
 }
 
 .prompt {
-
   white-space: nowrap;
   margin-right: 7px;
   display: -webkit-box;
@@ -41,10 +31,8 @@ div{
   box-orient: vertical;
   -webkit-user-select: none;
   user-select: none;  
-
 }
 
 .history {
     display:inline-block;
 }
-
