@@ -29,18 +29,21 @@
                         break;
                     }
                     this.replyTweet(split_input[1], split_input.slice(2));
+                    break;
                     //reply_tweet(split_input[1], split_input.slice(2));
                 case "rt": //retweet
                     if (split_input.length < 3){
                         //error
                     }
                     this.retweet(split_input[1], split_input.slice(2));
+                    break;
                     //retweet(split_input[1], split_input.slice(2));
                 case "tweet": // send a tweet
                     if (split_input.length < 2){
                         //error
                     }
                     this.tweet(this.myConcat(split_input.slice(1)));
+                    break;
                     //tweet(split_input.slice(1));
                 case "whois": // show one user's profile
                     if (split_input.length != 2){
@@ -94,6 +97,10 @@
             } else if (option == "-id"){ // reply to a specific tweet
                 console.log("reply to specific id");
                 //TODO: insert API call here
+                id = param[0];
+                reply_msg = this.myConcat(param.slice(1));
+                this.tweet(reply_msg, id);
+                
             } else{
                 //error
             }
@@ -109,7 +116,7 @@
                 //error
             }
         },
-        tweet: function(txt) {
+        tweet: function(txt, reply_id) {
             console.log(txt);
             if (txt[0] != "\"" || txt[txt.length - 1] != "\"") {
                 //TODO: add error message
@@ -123,7 +130,12 @@
                 return;
             }
             
-            var params = {status:tweet_txt};
+            if (reply_id == null){
+                var params = {status:tweet_txt};
+            } else {
+                var params = {status:tweet_txt,
+                              in_reply_to_status_id:reply_id}
+            }
             
             Twitter.api('statuses/update', 'POST', params, $.proxy(function(response){
                 console.log(response);
