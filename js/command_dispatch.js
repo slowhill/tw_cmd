@@ -62,6 +62,16 @@
                     }
                     this.showCommand();
                     break;
+                case "fllw":
+                    if (split_input.length == 2){
+                        this.follow(split_input[1]);
+                    }
+                    break;
+                case "ufllw":
+                    if (split_input.length == 2){
+                        this.unfollow(split_input[1]);
+                    }
+                    break;
                 default:
                     if (split_input[0].length > 0){
                         appendTo(incorrectSyntax); //Error
@@ -243,6 +253,12 @@
                 return txt_input[0];
             }
             return (txt_input[0] + " " + this.myConcat(txt_input.slice(1)));
+        },
+        follow: function(user){
+            Twitter.api("friendships/create", {screen_name:user,follow:true}, "POST", $.proxy(function(response){console.log(response)}));
+        },
+        unfollow: function(user){
+            Twitter.api("friendships/destroy", {screen_name:user,follow:true}, "POST", $.proxy(function(response){console.log(response)}));
         }
     };
 

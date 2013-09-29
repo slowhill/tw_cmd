@@ -55,6 +55,16 @@ var command_dictionary =
             description: "Favorites the tweet with tweetId, where tweetId is the number the tweet shows up as in tl"
         },
         {
+            name:"fllw",
+            command: "fllw &lt;screenName&gt;",
+            description: "Follows the specified user with screenName"
+        },
+        {
+            name:"ufllw",
+            command: "ufllw &lt;screenName&gt;",
+            description: "Unfollows the specified user with screenName"
+        },
+        {
             name:"clear",
             command:"clear",
             description: "Clears the terminal of old entries."
