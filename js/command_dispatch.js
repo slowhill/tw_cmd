@@ -110,7 +110,12 @@
                 //TODO: insert API call here
             } else if (option == "-id"){ // retweet a specific tweet
                 console.log("retweet a specific id");
-                //TODO: insert API call here
+                id = param[0];
+                console.log(id);
+                Twitter.api('statuses/retweet/' + id, 'POST', {include_entities: true}, $.proxy(function(response){
+                    console.log(response);
+                }));
+                
             } else{
                 //error
             }
