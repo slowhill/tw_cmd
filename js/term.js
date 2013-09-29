@@ -16,6 +16,7 @@ function tweet(id, uname, sname, text, summary, timestamp){
 
 $(document).ready(function(){
     console.log("document ready!");
+    $(document).scrollTop($(document).height()); // scrolls to the bottom
     if (localStorage.getItem('prevTerm') !== null) {
         $('#output').append(localStorage.getItem('prevTerm'));
     }

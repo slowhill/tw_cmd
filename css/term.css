@@ -6,13 +6,14 @@
   box-orient: horizontal;
   box-align: stretch;
   clear: both;
+  width:90%;
 }
 
 .cmdline {
   outline: none;
   background-color: transparent;
   margin: 0;
-  width: 100%;
+  width: 90%;
   font: inherit;
   border: none;
   color: inherit;
