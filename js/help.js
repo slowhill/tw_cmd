@@ -12,11 +12,11 @@ var command_dictionary =
             description: "Shows the timeline of a user's tweets",
             options:[
                 {
-                    syntax: "-u <screenName>",
+                    syntax: "-u &lt;screenName&gt;",
                     description: "Shows the tweets of a specific user"
                 },
                 {
-                    syntax: "-n <number>",
+                    syntax: "-n &lt;number&gt;",
                     description: "Shows only the number of specified tweets"
                 },
                 {
@@ -31,27 +31,27 @@ var command_dictionary =
         },
         {
             name:"reply",
-            command: "reply -id <tweetId> <\"message\">",
+            command: "reply -id &lt;tweetId> \"&lt;message&gt;\"",
             description: "Replies to a specific tweet, where tweetID is the number the tweet shows up as in tl"
         },
         {
             name:"tweet",
-            command: "tweet <\"update\">",
+            command: "tweet \"&lt;update&gt;\"",
             description: "Makes a new tweet using update as the content"
         },
         {
             name:"rt",
-            command: "rt -id <tweetId>",
+            command: "rt -id &lt;tweetId&gt;",
             description: "Retweets the tweet with tweetId, where tweetId is the number the tweet shows up as in tl"
         },
         {
             name:"whois",
-            command: "whois <screenName>",
+            command: "whois &lt;screenName&gt;",
             description: "Shows the details of the user with screenName"
         },
         {
             name:"fav",
-            command: "fav -id <tweetId>",
+            command: "fav -id &lt;tweetId&gt;",
             description: "Favorites the tweet with tweetId, where tweetId is the number the tweet shows up as in tl"
         },
         {
