@@ -26,16 +26,20 @@ $(document).ready(function(){
     $('.cmdline').keypress(function (e){
         if (e.charCode == 13){
             console.log($('.cmdline').val());
-            if ($('.cmdline').val() !== "clear") {
+            if ($('.cmdline').val() == "clear") {
+                clearTerm();
+                localStorage.removeItem('prevTerm');
+            } else {
                 $('#output').append('<div><div class=\"prompt history\">$></div><div class=\"input-line history\">'
                             + $('.cmdline').val() + '</div></div>');
-                Cmd.dispatch($('.cmdline').val());
+                if($('.cmdline').val() == 'cc'){
+                    changeTermCol();
+                } else {
+                    Cmd.dispatch($('.cmdline').val());
+                }
                 $('.cmdline').val('');
                 $(document).scrollTop($(document).height()); // scrolls to the bottom
                 localStorage.setItem('prevTerm', $('#output').html());
-            } else {
-                clearTerm();
-                localStorage.removeItem('prevTerm');
             }
         }
     })
@@ -53,4 +57,16 @@ function clearTerm() {
 
 function isNumber (num) {
   return ! isNaN (num-0);
+}
+
+function changeTermCol (){
+    if ($('body').css('background-color') == "rgb(0, 0, 0)"){
+        $('body').css('background-color', 'white');
+        $('div').css('color', '#000000');
+        $('h2').css('color', '#000000');
+    } else {
+        $('body').css('background-color', 'black');
+        $('div').css('color', '#48E310');
+        $('h2').css('color', '#48E310');
+    }
 }

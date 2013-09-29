@@ -56,9 +56,16 @@
                 case "del":
                     break;
                 case "help":
+                    if (split_input.length == 2){
+                        this.showCommand(split_input[1]);
+                        return;
+                    }
+                    this.showCommand();
                     break;
                 default:
-                    appendTo(incorrectSyntax); //Error
+                    if (split_input[0].length > 0){
+                        appendTo(incorrectSyntax); //Error
+                    }
                     break;
             }
         },
@@ -213,6 +220,23 @@
                         $.proxy(function(response){
                             twOps.formatUsrLookup(response);
                         }))
+        },
+        showCommand: function(command){
+            if (command == null){ // empty
+                for (i in command_dictionary){
+                    var com = command_dictionary[i];
+                    console.log(com);
+                    twOps.formatCommand(com);
+                }
+            } else {
+                for (i in command_dictionary){
+                    var com = command_dictionary[i];
+                    if (com.name == command){
+                        twOps.formatCommand(com);
+                        break;
+                    }
+                }    
+            }
         },
         myConcat: function(txt_input){
             if (txt_input.length == 1){

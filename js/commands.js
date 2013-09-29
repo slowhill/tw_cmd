@@ -62,8 +62,22 @@
             } else {
                 appendTo("You are not following " + usrlookup.screen_name);
             }
+        },
+        formatCommand: function(command){
+            console.log(command);
+            appendTo("COMMAND:");
+            appendTo(command.command);
+            appendTo(command.description);
+            appendTo("");
             
-            
+            if (command.options){
+                appendTo("OPTIONS:")
+                for (i in command.options){
+                    var op = command.options[i];
+                    appendTo(op.syntax);
+                    appendTo(op.description);
+                }
+            }
         }
     }
     

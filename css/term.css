@@ -1,4 +1,4 @@
-body {background-color:black; color:#48E310;}
+body {background-color:black;}
 div{
     font-family: "Deja Vu sans mono", 'Driod sans mono', Tahoma, Verdana, Arial, sans-serif;
     color: #48E310;
@@ -24,9 +24,9 @@ div{
   width: 100%;
   font: inherit;
   border: none;
-  color: #48E310;
   font-size: 10px;
-  background-color:black;
+  background-color:inherit;
+  color: inherit;
 }
 
 .prompt {
@@ -41,10 +41,12 @@ div{
   box-orient: vertical;
   -webkit-user-select: none;
   user-select: none;  
+  color:inherit;
 
 }
 
 .history {
     display:inline-block;
+    color:inherit;
 }
 
