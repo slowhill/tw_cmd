@@ -83,6 +83,22 @@
                         // options will be local and global and specific location
                         break;
                     case "-n":
+                        if (param == null){
+                            // error
+                            return;
+                        };
+                        n = parseInt(param);
+                        if (isNaN(n)){
+                            // error
+                            return;
+                        }
+                        if (n > 200){
+                            // error, too many
+                            return;
+                        }
+                        Twitter.api("statuses/home_timeline", {count:n}, "GET", $.proxy(function(response){
+                                twOps.formatTimelineforTerm(response);
+                            }));
                         // show a specific number of tweets
                         break;
                     case "more":
