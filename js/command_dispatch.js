@@ -42,9 +42,9 @@
                     break;
                 case "whois": // show one user's profile
                     if (split_input.length != 2){
-                        // error
+                        appendTo(incorrectSyntax);
                     }
-                    //show_usr(split_input[1]);
+                    this.showUsr(split_input[1]);
                     break;
                 case "fav":
                     if (split_input.length < 3) {
@@ -207,7 +207,12 @@
         },
         showUsr: function(usrname) {
             //TODO: insert API call here
-            console.log("showUsr");
+            console.log(usrname);
+            var params = {screen_name:usrname};
+            Twitter.api("users/lookup", params, "POST",
+                        $.proxy(function(response){
+                            twOps.formatUsrLookup(response);
+                        }))
         },
         myConcat: function(txt_input){
             if (txt_input.length == 1){

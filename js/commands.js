@@ -43,6 +43,27 @@
         },
         favouriteTweet: function(tweet) {
             appendTo("Favourited \"" + tweet.text + "\" on " + this.formatTimestamp(tweet.created_at));
+        },
+        formatUsrLookup: function(response) {
+            console.log(response)
+            if (response.errors){ // error with the response
+                appendTo("Could not find user");
+            }
+            
+            var usrlookup = response[0];
+            
+            appendTo(usrlookup.name);
+            appendTo(usrlookup.location);
+            appendTo(usrlookup.description);
+            appendTo("Tweets: " + usrlookup.statuses_count);
+            appendTo("Followers: " + usrlookup.followers_count);
+            if (usrlookup.following){
+                appendTo("You are following " + usrlookup.screen_name);
+            } else {
+                appendTo("You are not following " + usrlookup.screen_name);
+            }
+            
+            
         }
     }
     
