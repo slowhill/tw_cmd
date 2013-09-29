@@ -129,9 +129,11 @@
                 return;
             }
             
+            console.log(reply_id);
             if (reply_id == null){
                 var params = {status:tweet_txt};
             } else {
+                console.log("i got an id");
                 var params = {status:tweet_txt,
                               in_reply_to_status_id:reply_id}
             }
