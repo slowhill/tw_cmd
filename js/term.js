@@ -1,10 +1,10 @@
-function tweet(id, uname, sname, text, summary, timestamp){
+function tweet(id, uname, sname, text, summary, timestamp, favorited){
     this.id = id;
     this.user = uname;
     this.screen = sname;
     this.text = text;
     this.timestamp = twOps.formatTimestamp(timestamp);
-    
+    this.favorited = favorited;
     if (summary.retweeted_status != null) { //Retweeted from someone
         this.isRetweet = true;
         this.rtFrom = summary.retweeted_status.user.name;

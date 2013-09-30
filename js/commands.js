@@ -13,7 +13,7 @@
 	        console.log(tweetarray); //array of tweets
             var formattedArray = new Array(tweetarray.length);
             $.each(tweetarray, function(key, value) {
-                formattedArray[key] = new tweet(value.id_str, value.user.name, value.user.screen_name, twOps.getCorrectText(value), value, value.created_at); //format the timestamp
+                formattedArray[key] = new tweet(value.id_str, value.user.name, value.user.screen_name, twOps.getCorrectText(value), value, value.created_at, value.favorited);
                 if (key == (tweetarray.length - 1)) {
                     localStorage.setItem('lastTweetId', value.id);
                 }
@@ -27,7 +27,11 @@
             tlReply = twOps.getTimeline(response);
             $.each(tlReply, function(index, tweet){
                 //console.log(tweet);
-                var twStr = index + ". ";
+                var twStr = "";
+                if (tweet.favorited) { 
+                    twStr += "* "; 
+                }
+                twStr += index + ". ";
                 if (!tweet.isRetweet) {
                     twStr += tweet.user + " (@" + tweet.screen + "): " + tweet.text;
                 } else if (tweet.isRetweet) {
