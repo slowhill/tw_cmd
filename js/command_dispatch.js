@@ -182,6 +182,7 @@
             console.log(tweet_txt);
             if (tweet_txt.length > 140) {
                 //TODO: add error message
+                appendTo(incorrectSyntax);
                 return;
             }
             
@@ -211,7 +212,7 @@
                         id_key = localStorage.getItem(indexkey+"key");
                         handler_key = localStorage.getItem(indexkey+"handler");
                         Twitter.api("favorites/create", {id:id_key}, "POST", $.proxy(function(response){
-                            appendTo(twOps.favouriteTweet(response));
+                            twOps.favouriteTweet(response);
                         }));
                     } else {
                         appendTo(incorrectSyntax); //Error   
@@ -255,10 +256,14 @@
             return (txt_input[0] + " " + this.myConcat(txt_input.slice(1)));
         },
         follow: function(user){
-            Twitter.api("friendships/create", {screen_name:user,follow:true}, "POST", $.proxy(function(response){console.log(response)}));
+            Twitter.api("friendships/create", {screen_name:user,follow:true}, "POST", $.proxy(function(response){
+                console.log(response);
+                appendTo("Followed " + user + ".");
+            }));
         },
         unfollow: function(user){
-            Twitter.api("friendships/destroy", {screen_name:user,follow:true}, "POST", $.proxy(function(response){console.log(response)}));
+            Twitter.api("friendships/destroy", {screen_name:user,follow:true}, "POST", $.proxy(function(response){
+                console.log(response);                                                                                                           }));
         }
     };
 
