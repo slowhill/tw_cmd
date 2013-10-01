@@ -81,10 +81,16 @@
         },
         showTweets: function(option, param) {
             if (option == null && param == null){ // no parameters so show all tweets
-                Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
-                    //appendTo(twOps.getTimeline(response));
-                    twOps.formatTimelineforTerm(response);
-                }));
+                if (localStorage.newestTweetId == null) {
+                    Twitter.api("statuses/home_timeline", "GET", $.proxy(function(response){
+                        twOps.formatTimelineforTerm(response);
+                    }));
+                } else {
+                    Twitter.api("statuses/home_timeline", {since_id: localStorage.newestTweetId}, "GET", $.proxy(function(response){
+                        //appendTo(twOps.getTimeline(response));
+                        twOps.formatTimelineforTerm(response);
+                    }));
+                }
             } else {
                 switch (option){
                     case "-u":
